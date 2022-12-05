@@ -150,9 +150,15 @@ def data_visualization():
     df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' (')[0])
     df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
 
-    st.write(data2['Bundesland'].value_counts().rename_axis('Bundesland').reset_index(name='counts').merge(df_state, how='inner', left_on="Bundesland", right_on="Name"))
-    st.write(data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="Name"))
+    data3_state=data2['Bundesland'].value_counts().rename_axis('Bundesland').reset_index(name='counts').merge(df_state, how='inner', left_on="Bundesland", right_on="Name")
+    data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="Name")
             
+            
+    data3_state['people/charger']=data3_state["Population Estimate (E) 2021-12-31"]/data3_state["counts"]
+    data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
+
+    st.write(data3_state)
+    st.write(data3_ort)
     if(selected_cities):
         m = folium.Map(location=[51.104138, 10.180465], zoom_start=5.3, tiles="CartoDB positron")
 
