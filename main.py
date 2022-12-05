@@ -153,8 +153,9 @@ def data_visualization():
     df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' (')[0])
     df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
 
-    st.write(df_state)
-    st.write(df_city)
+    df_state.merge(df_city, how='inner', on=None, left_on="Bundesland", right_on="Name")
+    st.write(df_state.merge(df_city, how='inner', left_on="Bundesland", right_on="Name"))
+    st.write(df_city.merge(df_city, how='inner', left_on="Ort", right_on="Name"))
             
     if(selected_cities):
         m = folium.Map(location=[51.104138, 10.180465], zoom_start=5.3, tiles="CartoDB positron")
