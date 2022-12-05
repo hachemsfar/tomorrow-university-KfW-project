@@ -5,6 +5,7 @@ import seaborn as sns
 import numpy as np
 from PIL import Image
 import io
+import re
 
 from collections import defaultdict
 #Creating Map
