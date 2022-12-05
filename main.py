@@ -150,7 +150,7 @@ def data_visualization():
     df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' (')[0])
     df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' [')[0])
 
-    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
+    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' (')[0])
     df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
 
     st.write(df_state)
