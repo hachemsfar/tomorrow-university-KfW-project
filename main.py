@@ -137,7 +137,6 @@ def data_visualization():
     st.success("Both, P1 & P2 are positively correlated to Charging power (Anschlusleistung)")
 
     
-    st.subheader("How many person per charger")
 
     table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
 
@@ -153,12 +152,25 @@ def data_visualization():
     data3_state=data2['Bundesland'].value_counts().rename_axis('Bundesland').reset_index(name='counts').merge(df_state, how='inner', left_on="Bundesland", right_on="Name")
     data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="Name")
             
-            
+    st.subheader("How many person per charger")
     data3_state['people/charger']=data3_state["Population Estimate (E) 2021-12-31"]/data3_state["counts"]
     data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
 
-    st.write(data3_state)
-    st.write(data3_ort)
+    st.subheadeer("Per State")
+    st.write(data3_state[['Bundesland','people/charger']])
+    st.subheadeer("Per City")
+    st.write(data3_ort[['Ort','people/charger']])
+
+            
+    st.subheader("How many charger per km²")
+    data3_state['charger/km2']=data3_state["counts"]/data3_state["Area A (km²)"]
+    data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
+
+    st.subheadeer("Per State")
+    st.write(data3_state[['Bundesland','charger/km2']])
+    st.subheadeer("Per City")
+    st.write(data3_ort[['Ort','charger/km2']])
+
     if(selected_cities):
         m = folium.Map(location=[51.104138, 10.180465], zoom_start=5.3, tiles="CartoDB positron")
 
