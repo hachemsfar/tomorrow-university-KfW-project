@@ -35,6 +35,7 @@ def data_visualization():
 
     data = pd.read_csv('Ladesaeulenregister_CSV.csv', skiprows=10, sep=';', decimal=',',
                      encoding="ISO-8859-1", engine='python')
+    data2=data.copy()
     data_shape=data.shape
     data_columns=data.columns.tolist()
     
@@ -80,7 +81,7 @@ def data_visualization():
         if(i=="object"):
             dataD[j] = dataD[j].astype(str)
 
-    st.subheader("descriptive statistics of the dataframe")
+    st.subheader("Descriptive statistics of the dataframe")
     st.write(dataD)
 
     if(selected_cities):
@@ -114,7 +115,34 @@ def data_visualization():
     fig,ax=plt.subplots(figsize=(11,7))
     ax.hist(data['Anzahl Ladepunkte'], data['Anzahl Ladepunkte'].nunique()*2)
     st.pyplot(fig)
-        
+
+    st.subheader("# Chargers per state")
+
+    n1 = [0]+data2['Bundesland'].value_counts(ascending=True).tolist()
+    w1 = [""]+data2['Bundesland'].value_counts(ascending=True).index.tolist()
+    
+    fig,ax=plt.subplots(figsize=(11,7))
+    ax.barh(width=range(len(w1)),y=w1)
+    ax.set_xticks(range(len(n1)),n1)
+    st.pyplot(fig)
+
+    st.subheader("Correlation between features")
+    
+    corr = data2.corr()
+    fig = plt.figure(figsize=(11, 7))
+    sns.heatmap(corr,xticklabels=corr.columns,yticklabels=corr.columns,annot=True,cmap='Blues', fmt='g')
+    st.pyplot(fig)
+    st.success("P1&P2 are strongly positively correlated")
+    st.success("Both, P1 & P2 are positively correlated to Charging power (Anschlusleistung)")
+
+    st.write("# person per charger")
+    st.write(data2['Bundesland'].value_counts(ascending=True))
+    
+    st.subheader("How many person per charger")
+    table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
+    st.write(table_MN[0][['Name','PopulationEstimate (E)2021-12-31','AreaA (km²)']])
+    st.write(table_MN[2][['Name','PopulationEstimate (E)2021-12-31','Area']])
+    
     if(selected_cities):
         m = folium.Map(location=[51.104138, 10.180465], zoom_start=5.3, tiles="CartoDB positron")
 
@@ -128,6 +156,7 @@ def data_visualization():
                 print("")
 
         st_folium(m, width=700, height=500)
+
 
 def prediction():
     st.header("Prediction")
