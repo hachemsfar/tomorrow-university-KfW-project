@@ -147,8 +147,11 @@ def data_visualization():
     df_state=table_MN[0][['Name','Area A (km²)','Population Estimate (E) 2021-12-31']]
     df_city=table_MN[2][['Name','Population Estimate (E) 2021-12-31','Area']]
     
-    df_state['Name'] =  df_state['Name'].apply(lambda x: re.sub(r'\([^)]*\)', '', str(x)))
-    df_city['Name'] = df_city['Name'].apply(lambda x: re.sub(r'\([^)]*\)', '', str(x)))
+    df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' (')[0])
+    df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' [')[0])
+
+    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
+    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
 
     st.write(df_state)
     st.write(df_city)
