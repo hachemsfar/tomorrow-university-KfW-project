@@ -157,9 +157,9 @@ def data_visualization():
     data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
 
     st.subheader("Per State")
-    st.write(data3_state[['Bundesland','people/charger']])
+    st.write(data3_state[['Bundesland','people/charger']].sort_values(['people/charger'],ascending=False))
     st.subheader("Per City")
-    st.write(data3_ort[['Ort','people/charger']])
+    st.write(data3_ort[['Ort','people/charger']].sort_values(['people/charger'],ascending=False))
 
             
     st.subheader("How many charger per km²")
@@ -167,9 +167,9 @@ def data_visualization():
     data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
 
     st.subheader("Per State")
-    st.write(data3_state[['Bundesland','charger/km2']])
+    st.write(data3_state[['Bundesland','charger/km2']].sort_values(['charger/km2'],ascending=False))
     st.subheader("Per City")
-    st.write(data3_ort[['Ort','charger/km2']])
+    st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
 
     if(selected_cities):
         m = folium.Map(location=[51.104138, 10.180465], zoom_start=5.3, tiles="CartoDB positron")
