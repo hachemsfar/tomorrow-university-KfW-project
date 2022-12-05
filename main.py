@@ -29,9 +29,9 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 def data_visualization():
     col1, col2 = st.columns(2)
     with col1:
-        st.image("tomorrow_university.PNG")
+        st.image("tomorrow_university.png")
     with col2:
-        st.image("kfw_logo.PNG")
+        st.image("kfw_logo.png")
 
     data = pd.read_csv('Ladesaeulenregister_CSV.csv', skiprows=10, sep=';', decimal=',',
                      encoding="ISO-8859-1", engine='python')
@@ -42,7 +42,7 @@ def data_visualization():
     st.subheader("Public charging infrastructure")
     col1, col2, col3 = st.columns(3)
     with col2:
-        st.image("Bundesnetzagentur_logo.svg.PNG")
+        st.image("Bundesnetzagentur_logo.svg.png")
 
     st.header("Data Analysis")
     List_states=list(data['Bundesland'].unique()) #["All"]+
