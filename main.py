@@ -141,7 +141,7 @@ def data_visualization():
     st.subheader("How many person per charger")
     table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
     st.write(table_MN[0].columns)
-    st.write(table_MN[0][['Name','AreaA (km²)','PopulationEstimate (E)2021-12-31']])
+    st.write(table_MN[0]['Name','AreaA (km²)','PopulationEstimate (E)2021-12-31'])
     #st.write(table_MN[2][['Name','PopulationEstimate (E)2021-12-31','Area']])
     
     if(selected_cities):
