@@ -157,9 +157,9 @@ def data_visualization():
     data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
 
     st.subheader("Per State")
-    st.write(data3_state[['Bundesland','people/charger']].sort_values(['people/charger'],ascending=False))
+    st.write(data3_state[['Bundesland','people/charger']].sort_values(['people/charger'],ascending=True))
     st.subheader("Per City")
-    st.write(data3_ort[['Ort','people/charger']].sort_values(['people/charger'],ascending=False))
+    st.write(data3_ort[['Ort','people/charger']].sort_values(['people/charger'],ascending=True))
 
             
     st.subheader("How many charger per km²")
