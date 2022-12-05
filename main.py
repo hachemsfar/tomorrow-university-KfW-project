@@ -135,10 +135,11 @@ def data_visualization():
     st.success("P1&P2 are strongly positively correlated")
     st.success("Both, P1 & P2 are positively correlated to Charging power (Anschlusleistung)")
 
-    st.write("# person per charger")
-    st.write(data2['Bundesland'].value_counts(ascending=True))
     
     st.subheader("How many person per charger")
+    st.write(data2['Bundesland'].value_counts(ascending=True))
+    st.write(data2['Ort'].value_counts(ascending=True))
+
     table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
     st.write(table_MN[0][['Name','Area A (km²)','Population Estimate (E) 2021-12-31']])
     st.write(table_MN[2][['Name','Population Estimate (E) 2021-12-31','Area']])
