@@ -141,7 +141,7 @@ def data_visualization():
     w = data2[data2['year']>2000]['year'].value_counts(ascending=True).index.tolist()
             
     fig,ax=plt.subplots(figsize=(11,7))
-    ax.plot(w, n)
+    ax.plot(w, n,'.')
     ax.set_xlabel("Year")
     ax.set_ylabel("# Chargers per year (from 2000)")
     st.pyplot(fig)
