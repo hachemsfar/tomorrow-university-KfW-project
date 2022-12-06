@@ -138,11 +138,12 @@ def data_visualization():
 
     data2['year']=year_list
     st.write(data2)
+    st.write(data2['year'].value_counts(ascending=True))
     n = [0]+data2['year'].value_counts(ascending=True).tolist()
     w = [0]+data2['year'].value_counts(ascending=True).index.tolist()
             
     fig,ax=plt.subplots(figsize=(11,7))
-    ax.plot(w, n)
+    ax.plot(n, w)
     ax.set_xlabel("Year")
     ax.set_ylabel("# Chargers per year")
     st.pyplot(fig)
