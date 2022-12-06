@@ -251,7 +251,6 @@ def prediction():
         forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
         forecast=forecast[['ds','yhat1']]
         forecast.columns=['year',"chargers per year"]
-        forecast['year']=forecast['year'].apply(lambda x:str(x).split("-")[0])
         st.write(forecast[1:])
 
     
