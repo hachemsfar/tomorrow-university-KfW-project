@@ -239,6 +239,8 @@ def prediction():
     new_column = df[["year","chargers per year"]]
     new_column=new_column[new_column["year"]!="2022-01-01"]
     new_column=new_column[new_column['year']>"2011-01-01"]
+    new_column=new_column.sort_values(['year'],ascending=False)
+    
     st.write(new_column)
             
     new_column.dropna(inplace=True)
