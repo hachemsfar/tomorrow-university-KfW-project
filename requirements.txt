@@ -8,3 +8,4 @@ seaborn
 streamlit_folium
 folium
 plotly-express
+neuralprophet
