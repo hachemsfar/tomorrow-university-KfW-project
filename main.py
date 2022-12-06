@@ -237,8 +237,9 @@ def prediction():
     st.write(df)
     new_column = df[["year","chargers per year"]]
     new_column=new_column[new_column["year"]!=2022]
-    new_column=new_column[new_column['year']>2000]
+    new_column=new_column[new_column['year']>2011]
             
+    new_column=new_column.sort_values(['year'],axis=1)
     new_column.dropna(inplace=True)
     new_column.columns = ['ds', 'y']
     clicked=st.button('Predict')
