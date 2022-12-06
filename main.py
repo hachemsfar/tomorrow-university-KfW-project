@@ -137,13 +137,13 @@ def data_visualization():
 
 
     data2['year']=year_list
-    n = data2['year'].value_counts(ascending=True).tolist()
-    w = data2['year'].value_counts(ascending=True).index.tolist()
+    n = data2[data2['year']>2000]['year'].value_counts(ascending=True).tolist()
+    w = data2[data2['year']>2000]['year'].value_counts(ascending=True).index.tolist()
             
     fig,ax=plt.subplots(figsize=(11,7))
     ax.plot(w, n)
     ax.set_xlabel("Year")
-    ax.set_ylabel("# Chargers per year")
+    ax.set_ylabel("# Chargers per year (from 2000)")
     st.pyplot(fig)
 
     st.subheader("Correlation between features")
