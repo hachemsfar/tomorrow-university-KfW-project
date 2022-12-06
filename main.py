@@ -218,6 +218,10 @@ def prediction():
     data = pd.read_csv('Ladesaeulenregister_CSV.csv', skiprows=10, sep=';', decimal=',',
                      encoding="ISO-8859-1", engine='python')
   
+    List_states=["All"]+list(data['Bundesland'].unique()) #
+    State=st.selectbox('Pick State', List_states)
+    if(State!="All"):
+       data=data[data['Bundesland']==State]
 
     year_list=[]
 
@@ -245,7 +249,7 @@ def prediction():
         forecast = n.predict(future)
         forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
         forecast=forecast[['ds','yhat1']]
-        forecast.columns=['year',column_to_predict]
+        forecast.columns=['year',"chargers per year"]
         forecast['year']=forecast['year'].apply(lambda x:str(x).split("-")[0])
         st.write(forecast[1:])
 
