@@ -212,8 +212,42 @@ def data_visualization():
 
 def prediction():
     st.header("Prediction")
-    st.subheader("Data Preprocessing")
-    st.subheader(".....Prediction")
+
+    data = pd.read_csv('Ladesaeulenregister_CSV.csv', skiprows=10, sep=';', decimal=',',
+                     encoding="ISO-8859-1", engine='python')
+  
+
+    year_list=[]
+
+    for i in data['Inbetriebnahmedatum'].tolist():
+       year_list.append(int(i.split('.')[2]))
+
+
+    data['year']=year_list
+            
+    future_filter = st.number_input('How many year to predict', 2, 23)
+
+    df=pd.DataFrame({"year":data['year'].value_counts(ascending=True).index.tolist(),"chargers per year":data['year'].value_counts(ascending=True).tolist()})
+                     
+    df=df[["year","chargers per year"]].sort_values("year").reset_index().drop("index",axis=1)
+    new_column = df[["year","chargers per year"]]
+    new_column=new_column[new_column["year"]!=2022]
+    new_column=new_column[new_column['year']>2000]['year']
+            
+    new_column.dropna(inplace=True)
+    new_column.columns = ['ds', 'y']
+    clicked=st.button('Predict')
+    if clicked:
+        n = NeuralProphet()
+        model = n.fit(new_column, freq='Y')
+        future = n.make_future_dataframe(new_column, periods=future_filter+1)
+        forecast = n.predict(future)
+        forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
+        forecast=forecast[['ds','yhat1']]
+        forecast.columns=['year',column_to_predict]
+        forecast['year']=forecast['year'].apply(lambda x:str(x).split("-")[0])
+        st.write(forecast[1:])
+
     
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
