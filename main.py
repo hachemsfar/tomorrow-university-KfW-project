@@ -230,17 +230,15 @@ def prediction():
     future_filter = st.number_input('How many year to predict', 2, 23)
 
     df=pd.DataFrame.from_dict({"year":data['year'].value_counts(ascending=True).index.tolist(),"chargers per year":data['year'].value_counts(ascending=True).tolist()})
-                     
-    df=df[["year","chargers per year"]].sort_values("year").reset_index().drop("index",axis=1)
+    st.write(df)
     new_column = df[["year","chargers per year"]]
     new_column=new_column[new_column["year"]!=2022]
-    new_column=new_column[new_column['year']>2000]['year']
+    new_column=new_column[new_column['year']>2000]
             
     new_column.dropna(inplace=True)
     new_column.columns = ['ds', 'y']
     clicked=st.button('Predict')
     if clicked:
-        st.write(new_column)
         n = NeuralProphet()
         model = n.fit(new_column, freq='Y')
         future = n.make_future_dataframe(new_column, periods=future_filter+1)
