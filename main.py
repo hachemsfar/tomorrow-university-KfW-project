@@ -137,7 +137,7 @@ def data_visualization():
 
 
     data2['year']=year_list
-
+    st.write(data2)
     n = [0]+data2['year'].value_counts(ascending=True).tolist()
     w = [0]+data2['year'].value_counts(ascending=True).index.tolist()
             
