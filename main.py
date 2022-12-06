@@ -8,6 +8,7 @@ import io
 import re
 import geopandas as gpd
 import plotly.express as px
+from neuralprophet import NeuralProphet
 
 from collections import defaultdict
 #Creating Map
@@ -15,6 +16,7 @@ import folium
 from folium.plugins import MarkerCluster
 from folium import IFrame
 from streamlit_folium import st_folium
+
 
 hide_streamlit_style = """
             <style>
