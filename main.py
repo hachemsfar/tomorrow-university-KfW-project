@@ -255,7 +255,7 @@ def prediction():
         forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
         forecast=forecast[['ds','yhat1']]
         forecast.columns=['year',"chargers per year"]
-        st.write(forecast[1:])
+        st.write(forecast)
 
     
 page_names_to_funcs = {
