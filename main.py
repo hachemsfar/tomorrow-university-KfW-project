@@ -171,9 +171,6 @@ def data_visualization():
     st.write(data3_state[['Bundesland','charger/km2']].sort_values(['charger/km2'],ascending=False))
     st.subheader("Per City")
     st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
-
-    Germany_df=gpd.read_file("DEU_adm3.shp")
-    st.write(Germany_df)
             
     if(selected_cities):
         m = folium.Map(location=[51.104138, 10.180465], zoom_start=5.3, tiles="CartoDB positron")
