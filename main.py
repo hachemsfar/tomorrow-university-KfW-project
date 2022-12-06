@@ -128,6 +128,23 @@ def data_visualization():
     ax.set_xticks(range(len(n1)),n1)
     st.pyplot(fig)
 
+    year_list=[]
+
+    for i in df['Inbetriebnahmedatum'].tolist():
+       year_list.append(int(i.split('.')[2]))
+
+
+    df['year']=year_list
+
+    n = [0]+df['year'].value_counts(ascending=True).tolist()
+    w = [0]+df['year'].value_counts(ascending=True).index.tolist()
+            
+    fig,ax=plt.subplots(figsize=(11,7))
+    ax.plot(w, n)
+    ax.set_xlabel("Year")
+    ax.set_ylabel("# Chargers per year")
+    st.pyplot(fig)
+
     st.subheader("Correlation between features")
     
     corr = data2.corr()
