@@ -234,12 +234,12 @@ def prediction():
     future_filter = st.number_input('How many year to predict', 2, 23)
 
     df=pd.DataFrame.from_dict({"year":data['year'].value_counts(ascending=True).index.tolist(),"chargers per year":data['year'].value_counts(ascending=True).tolist()})
-    st.write(df)
     new_column = df[["year","chargers per year"]]
     new_column=new_column[new_column["year"]!=2022]
     new_column=new_column[new_column['year']>2011]
             
     new_column=new_column.sort_values(['year'],axis=0)
+    st.write(new_column)
     new_column.dropna(inplace=True)
     new_column.columns = ['ds', 'y']
     clicked=st.button('Predict')
