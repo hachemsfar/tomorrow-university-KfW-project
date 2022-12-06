@@ -250,7 +250,7 @@ def prediction():
     if clicked:
         n = NeuralProphet()
         model = n.fit(new_column, freq='Y')
-        future = n.make_future_dataframe(new_column, periods=future_filter+1)
+        future = n.make_future_dataframe(new_column, periods=future_filter)
         forecast = n.predict(future)
         forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
         forecast=forecast[['ds','yhat1']]
