@@ -16,6 +16,7 @@ import folium
 from folium.plugins import MarkerCluster
 from folium import IFrame
 from streamlit_folium import st_folium
+from datetime import datetime
 
 
 hide_streamlit_style = """
@@ -226,7 +227,8 @@ def prediction():
     year_list=[]
 
     for i in data['Inbetriebnahmedatum'].tolist():
-       year_list.append(int(i.split('.')[2]))
+       year_list.append(datetime.strptime(i.split('.')[2]+"-01-01","%Y-%m-%d"))
+
 
 
     data['year']=year_list
