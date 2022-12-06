@@ -237,12 +237,9 @@ def prediction():
 
     df=pd.DataFrame.from_dict({"chargers per year":data['year'].value_counts(ascending=True).tolist(),"year":data['year'].value_counts(ascending=True).index.tolist()})
     new_column = df[["year","chargers per year"]]
-    st.write(new_column)
     new_column=new_column[new_column["year"]!="2022-01-01"]
     new_column=new_column[new_column['year']>"2011-01-01"]
             
-    new_column=new_column.sort_values(['year'],axis=0)
-    st.write(new_column)
     new_column.dropna(inplace=True)
     new_column.columns = ['ds', 'y']
     clicked=st.button('Predict')
