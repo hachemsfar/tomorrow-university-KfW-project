@@ -239,14 +239,16 @@ def prediction():
     new_column = df[["year","chargers per year"]]
     new_column=new_column[new_column["year"]!="2022-01-01"]
     new_column=new_column[new_column['year']>"2011-01-01"]
+    st.write(new_column)
             
     new_column.dropna(inplace=True)
     new_column.columns = ['ds', 'y']
+            
     clicked=st.button('Predict')
     if clicked:
         n = NeuralProphet()
         model = n.fit(new_column, freq='Y')
-        future = n.make_future_dataframe(new_column, periods=future_filter)
+        future = n.make_future_dataframe(new_column, periods=future_filter+1)
         forecast = n.predict(future)
         forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
         forecast=forecast[['ds','yhat1']]
