@@ -7,6 +7,7 @@ from PIL import Image
 import io
 import re
 import geopandas as gpd
+import plotly.express as px
 
 from collections import defaultdict
 #Creating Map
@@ -146,6 +147,10 @@ def data_visualization():
     ax.set_ylabel("# Chargers per year (from 2000)")
     st.pyplot(fig)
 
+    st.subheader("Outliers Identification")
+    fig = px.box(data2, y="year")
+    st.plotly_chart(fig)
+            
     st.subheader("Correlation between features")
     
     corr = data2.corr()
