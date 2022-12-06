@@ -240,6 +240,7 @@ def prediction():
     new_column.columns = ['ds', 'y']
     clicked=st.button('Predict')
     if clicked:
+        st.write(new_column)
         n = NeuralProphet()
         model = n.fit(new_column, freq='Y')
         future = n.make_future_dataframe(new_column, periods=future_filter+1)
