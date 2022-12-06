@@ -128,16 +128,18 @@ def data_visualization():
     ax.set_xticks(range(len(n1)),n1)
     st.pyplot(fig)
 
+    st.subheader("# new chargers per year")
+
     year_list=[]
 
-    for i in df['Inbetriebnahmedatum'].tolist():
+    for i in data2['Inbetriebnahmedatum'].tolist():
        year_list.append(int(i.split('.')[2]))
 
 
-    df['year']=year_list
+    data2['year']=year_list
 
-    n = [0]+df['year'].value_counts(ascending=True).tolist()
-    w = [0]+df['year'].value_counts(ascending=True).index.tolist()
+    n = [0]+data2['year'].value_counts(ascending=True).tolist()
+    w = [0]+data2['year'].value_counts(ascending=True).index.tolist()
             
     fig,ax=plt.subplots(figsize=(11,7))
     ax.plot(w, n)
