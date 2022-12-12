@@ -303,20 +303,22 @@ def prediction():
         forecast=forecast[['ds','yhat1']]
         forecast.columns=['year',"chargers per year"]
         st.write(forecast)
-        if(State!="All"):
-            data=data[data['Bundesland']==State]            
-            st.header("Clustering")
 
-            X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
-            model = DBSCAN(eps=0.01, min_samples=5).fit(X)
-            class_predictions = model.labels_
-            
-            data_location['CLUSTERS_DBSCAN'] = class_predictions
-            m = create_map(data_location, 'CLUSTERS_DBSCAN')
-    try:            
-        st_folium(m, width=700, height=500)
-    except:
-        print("luna")
+    if(State!="All"):
+        st.header("Clustering")
+
+        X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
+        model = DBSCAN(eps=0.01, min_samples=5).fit(X)
+        class_predictions = model.labels_
+
+        data_location['CLUSTERS_DBSCAN'] = class_predictions
+        m = create_map(data_location, 'CLUSTERS_DBSCAN')
+        try:            
+            st_folium(m, width=700, height=500)
+        except:
+            print("luna")
+                
+        
         
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
