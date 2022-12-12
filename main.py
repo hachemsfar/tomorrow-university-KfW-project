@@ -297,6 +297,7 @@ def prediction():
         st.header("Clustering")
 
         X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
+        st.write(data_location)
         model = DBSCAN(eps=0.01, min_samples=5).fit(X)
         class_predictions = model.labels_
             
