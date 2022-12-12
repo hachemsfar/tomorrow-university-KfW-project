@@ -255,8 +255,8 @@ def prediction():
        
                xx_list.append(xx)
                yy_list.append(yy)
-            except:
-                print("")
+           except:
+               print("")
 
         data_dict = {'Breitengrad': xx_list, 'Längengrad': yy_list}
         data_location=pd.DataFrame.from_dict(data)
