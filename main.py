@@ -246,15 +246,15 @@ def prediction():
     if(State!="All"):
        data=data[data['Bundesland']==State]
 
-        xx_list=[]
-        yy_list=[]
-        for index,row in enumerate(df.drop_duplicates(subset = ["Breitengrad","Längengrad"],keep = 'last').itertuples()):
-            try:
-                xx=float(row.Breitengrad.replace(",","."))
-                yy=float(row.Längengrad.replace(",","."))
-        
-                xx_list.append(xx)
-                yy_list.append(yy)
+       xx_list=[]
+       yy_list=[]
+       for index,row in enumerate(df.drop_duplicates(subset = ["Breitengrad","Längengrad"],keep = 'last').itertuples()):
+           try:
+               xx=float(row.Breitengrad.replace(",","."))
+               yy=float(row.Längengrad.replace(",","."))
+       
+               xx_list.append(xx)
+               yy_list.append(yy)
             except:
                 print("")
 
