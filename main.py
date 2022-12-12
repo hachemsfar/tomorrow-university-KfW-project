@@ -315,7 +315,7 @@ def prediction():
             m = create_map(data_location, 'CLUSTERS_DBSCAN')
     try:            
         st_folium(m, width=700, height=500)
-    expect:
+    except:
         print("luna")
         
 page_names_to_funcs = {
