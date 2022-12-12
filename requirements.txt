@@ -9,3 +9,5 @@ streamlit_folium
 folium
 plotly-express
 neuralprophet
+hdbscan
+scikit-learn
