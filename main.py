@@ -212,18 +212,55 @@ def data_visualization():
 
         st_folium(m, width=700, height=500)
 
+def create_map(df, cluster_column):
+    m = folium.Map(location=[df.Breitengrad.mean(), df.Längengrad.mean()], zoom_start=9, tiles='OpenStreet Map')
+
+    for _, row in df.iterrows():
+
+        if row[cluster_column] == -1:
+            cluster_colour = '#000000'
+        else:
+            cluster_colour = cols[int(row[cluster_column])]
+
+        folium.CircleMarker(
+            location= [row['Breitengrad'], row['Längengrad']],
+            radius=5,
+            popup= row[cluster_column],
+            color=cluster_colour,
+            fill=True,
+            fill_color=cluster_colour
+        ).add_to(m)
+        
+    return(m)
 
 def prediction():
-    st.header("Prediction")
+    st.header("Expected number of chargers in next year")
 
     data = pd.read_csv('Ladesaeulenregister_CSV.csv', skiprows=10, sep=';', decimal=',',
                      encoding="ISO-8859-1", engine='python')
+            
+
   
     List_states=["All"]+list(data['Bundesland'].unique()) #
     State=st.selectbox('Pick State', List_states)
     if(State!="All"):
        data=data[data['Bundesland']==State]
 
+        xx_list=[]
+        yy_list=[]
+        for index,row in enumerate(df.drop_duplicates(subset = ["Breitengrad","Längengrad"],keep = 'last').itertuples()):
+            try:
+                xx=float(row.Breitengrad.replace(",","."))
+                yy=float(row.Längengrad.replace(",","."))
+        
+                xx_list.append(xx)
+                yy_list.append(yy)
+            except:
+                print("")
+
+        data_dict = {'Breitengrad': xx_list, 'Längengrad': yy_list}
+        data_location=pd.DataFrame.from_dict(data)
+            
     year_list=[]
 
     for i in data['Inbetriebnahmedatum'].tolist():
@@ -256,8 +293,17 @@ def prediction():
         forecast=forecast[['ds','yhat1']]
         forecast.columns=['year',"chargers per year"]
         st.write(forecast)
+            
+        st.header("Clustering")
 
-    
+        X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
+        model = DBSCAN(eps=0.01, min_samples=5).fit(X)
+        class_predictions = model.labels_
+            
+        data_location['CLUSTERS_DBSCAN'] = class_predictions
+        m = create_map(data_location, 'CLUSTERS_DBSCAN')
+        st_folium(m, width=700, height=500)
+
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
 "Prediction": prediction
