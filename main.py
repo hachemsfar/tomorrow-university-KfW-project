@@ -293,7 +293,7 @@ def prediction():
         st.header("Clustering")
 
         X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
-        model = DBSCAN(eps=0.01, min_samples=5).fit(X)
+        model = DBSCAN(eps=0.01, min_samples=3).fit(X)
         class_predictions = model.labels_
 
         data_location['CLUSTERS_DBSCAN'] = class_predictions
@@ -301,9 +301,18 @@ def prediction():
         try:            
             st_folium(m, width=700, height=500)
         except:
-            print("luna")
-        
-    st.write("Historical Data")        
+            print("")
+            
+    st.success(f'Number of clusters found: {len(np.unique(class_predictions))}')
+    st.success(f'Number of outliers found: {len(class_predictions[class_predictions==-1])}')
+
+    st.success(f'Silhouette ignoring outliers: {silhouette_score(X[class_predictions!=-1], class_predictions[class_predictions!=-1])}')
+
+    no_outliers = 0
+    no_outliers = np.array([(counter+2)*x if x==-1 else x for counter, x in enumerate(class_predictions)])
+    st.success(f'Silhouette outliers as singletons: {silhouette_score(X, no_outliers)}')
+
+    st.header("Historical Data")        
     st.write(new_column)
             
     new_column.dropna(inplace=True)
@@ -318,7 +327,7 @@ def prediction():
         forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
         forecast=forecast[['ds','yhat1']]
         forecast.columns=['year',"chargers per year"]
-        st.write("Expected # chargers for the next years")
+        st.header("Expected # chargers for the next years")
         st.write(forecast)
 
 
