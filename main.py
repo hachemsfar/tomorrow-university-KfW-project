@@ -313,8 +313,11 @@ def prediction():
             
             data_location['CLUSTERS_DBSCAN'] = class_predictions
             m = create_map(data_location, 'CLUSTERS_DBSCAN')
-            st_folium(m, width=700, height=500)
-
+    try:            
+        st_folium(m, width=700, height=500)
+    expect:
+        print("luna")
+        
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
 "Prediction": prediction
