@@ -248,7 +248,7 @@ def prediction():
 
        xx_list=[]
        yy_list=[]
-       for index,row in enumerate(df.drop_duplicates(subset = ["Breitengrad","Längengrad"],keep = 'last').itertuples()):
+       for index,row in enumerate(data.drop_duplicates(subset = ["Breitengrad","Längengrad"],keep = 'last').itertuples()):
            try:
                xx=float(row.Breitengrad.replace(",","."))
                yy=float(row.Längengrad.replace(",","."))
