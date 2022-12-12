@@ -264,7 +264,7 @@ def prediction():
     year_list=[]
 
     for i in data['Inbetriebnahmedatum'].tolist():
-       year_list.append(datetime.strptime(i.split('.')[2]+"-01-01","%Y-%m-%d"))
+        year_list.append(datetime.strptime(i.split('.')[2]+"-01-01","%Y-%m-%d"))
 
 
 
