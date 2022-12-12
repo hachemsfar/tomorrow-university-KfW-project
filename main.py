@@ -244,7 +244,7 @@ def create_map(df, cluster_column):
     return(m)
 
 def prediction():
-    st.header("Expected number of chargers in next year")
+    st.header("Prediction")
 
     data = pd.read_csv('Ladesaeulenregister_CSV.csv', skiprows=10, sep=';', decimal=',',
                      encoding="ISO-8859-1", engine='python')
@@ -287,7 +287,23 @@ def prediction():
     new_column=new_column[new_column["year"]!="2022-01-01"]
     new_column=new_column[new_column['year']>"2011-01-01"]
     new_column=new_column.sort_values(['year'],ascending=True)
-    
+        
+        
+    if(State!="All"):
+        st.header("Clustering")
+
+        X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
+        model = DBSCAN(eps=0.01, min_samples=5).fit(X)
+        class_predictions = model.labels_
+
+        data_location['CLUSTERS_DBSCAN'] = class_predictions
+        m = create_map(data_location, 'CLUSTERS_DBSCAN')
+        try:            
+            st_folium(m, width=700, height=500)
+        except:
+            print("luna")
+        
+    st.write("Historical Data")        
     st.write(new_column)
             
     new_column.dropna(inplace=True)
@@ -302,21 +318,10 @@ def prediction():
         forecast['yhat1']=forecast['yhat1'].apply(lambda x:int(x))
         forecast=forecast[['ds','yhat1']]
         forecast.columns=['year',"chargers per year"]
+        st.write("Expected # chargers for the next years")
         st.write(forecast)
 
-    if(State!="All"):
-        st.header("Clustering")
 
-        X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
-        model = DBSCAN(eps=0.01, min_samples=5).fit(X)
-        class_predictions = model.labels_
-
-        data_location['CLUSTERS_DBSCAN'] = class_predictions
-        m = create_map(data_location, 'CLUSTERS_DBSCAN')
-        try:            
-            st_folium(m, width=700, height=500)
-        except:
-            print("luna")
                 
         
         
