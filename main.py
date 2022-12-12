@@ -303,14 +303,14 @@ def prediction():
         except:
             print("")
             
-    st.success(f'Number of clusters found: {len(np.unique(class_predictions))}')
-    st.success(f'Number of outliers found: {len(class_predictions[class_predictions==-1])}')
+        st.success('Number of clusters found:'+str(len(np.unique(class_predictions)))
+        st.success('Number of outliers found:'+str(len(class_predictions[class_predictions==-1])))
 
-    st.success(f'Silhouette ignoring outliers: {silhouette_score(X[class_predictions!=-1], class_predictions[class_predictions!=-1])}')
+        st.success('Silhouette ignoring outliers:'+str(silhouette_score(X[class_predictions!=-1], class_predictions[class_predictions!=-1])))
 
-    no_outliers = 0
-    no_outliers = np.array([(counter+2)*x if x==-1 else x for counter, x in enumerate(class_predictions)])
-    st.success(f'Silhouette outliers as singletons: {silhouette_score(X, no_outliers)}')
+        no_outliers = 0
+        no_outliers = np.array([(counter+2)*x if x==-1 else x for counter, x in enumerate(class_predictions)])
+        st.success('Silhouette outliers as singletons:'+str(silhouette_score(X, no_outliers)))
 
     st.header("Historical Data")        
     st.write(new_column)
