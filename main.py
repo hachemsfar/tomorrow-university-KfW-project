@@ -301,7 +301,7 @@ def prediction():
             data_location['CLUSTERS_DBSCAN'] = class_predictions
             m = create_map(data_location, 'CLUSTERS_DBSCAN')
                 
-        elif(Clustering_options=='DBSCAN'):
+        elif(Clustering_options=='HDBSCAN'):
             model = hdbscan.HDBSCAN(min_cluster_size=5, min_samples=3, cluster_selection_epsilon=0.01)
             class_predictions = model.fit_predict(X)
                 
