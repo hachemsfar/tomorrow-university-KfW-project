@@ -306,6 +306,7 @@ def prediction():
             class_predictions = model.fit_predict(X)
                 
             data_location['CLUSTER_HDBSCAN'] = class_predictions
+            st.write(data_location)
             m = create_map(data_location, 'CLUSTER_HDBSCAN')
                 
         elif(Clustering_options=='HDBSCAN+KNN'):
