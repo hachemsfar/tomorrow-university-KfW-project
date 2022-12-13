@@ -303,7 +303,7 @@ def prediction():
         except:
             print("")
             
-        st.success('Number of clusters found:'+str(len(np.unique(class_predictions)))
+        st.success('Number of clusters found:'+str(len(np.unique(class_predictions))))
         st.success('Number of outliers found:'+str(len(class_predictions[class_predictions==-1])))
 
         st.success('Silhouette ignoring outliers:'+str(silhouette_score(X[class_predictions!=-1], class_predictions[class_predictions!=-1])))
