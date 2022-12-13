@@ -291,26 +291,52 @@ def prediction():
         
     if(State!="All"):
         st.header("Clustering")
+        Clustering_options=st.selectbox('Clustering Method', ['DBSCAN','HDBSCAN','HDBSCAN+KNN'])
 
         X = np.array(data_location[['Breitengrad', 'Längengrad']], dtype='float64')
-        model = DBSCAN(eps=0.01, min_samples=3).fit(X)
-        class_predictions = model.labels_
+        if(Clustering_options=='DBSCAN'):
+            model = DBSCAN(eps=0.01, min_samples=3).fit(X)
+            class_predictions = model.labels_
 
-        data_location['CLUSTERS_DBSCAN'] = class_predictions
-        m = create_map(data_location, 'CLUSTERS_DBSCAN')
-        try:            
+            data_location['CLUSTERS_DBSCAN'] = class_predictions
+            m = create_map(data_location, 'CLUSTERS_DBSCAN')
+                
+        elif(Clustering_options=='DBSCAN'):
+            model = hdbscan.HDBSCAN(min_cluster_size=5, min_samples=3, cluster_selection_epsilon=0.01)
+            class_predictions = model.fit_predict(X)
+                
+            data_location['CLUSTER_HDBSCAN'] = class_predictions
+            m = create_map(data_location, 'CLUSTER_HDBSCAN')
+                
+        elif(Clustering_options=='HDBSCAN+KNN'):
+            model = hdbscan.HDBSCAN(min_cluster_size=5, min_samples=3, cluster_selection_epsilon=0.01)
+            class_predictions = model.fit_predict(X)
+            
+            data_location['CLUSTER_HDBSCAN'] = class_predictions
+            classifier = KNeighborsClassifier(n_neighbors=1)
+            df_train = data_location[data_location.CLUSTER_HDBSCAN!=-1]
+            df_predict = data_location[data_location.CLUSTER_HDBSCAN==-1]
+        
+            X_train = np.array(df_train[['Breitengrad', 'Längengrad']], dtype='float64')
+            y_train = np.array(df_train['CLUSTER_HDBSCAN'])
+
+            X_predict = np.array(df_predict[['Breitengrad', 'Längengrad']], dtype='float64')  
+                
+            classifier.fit(X_train, y_train)
+        
+            predictions = classifier.predict(X_predict)
+        
+            data_location['CLUSTER_hybrid'] = data_location['CLUSTER_HDBSCAN']
+            data_location.loc[data_location.CLUSTER_HDBSCAN==-1, 'CLUSTER_hybrid'] = predictions  
+        
+            m = create_map(data_location, 'CLUSTER_hybrid')     
+                
+        try:
             st_folium(m, width=700, height=500)
         except:
-            print("")
-            
-        #st.success('Number of clusters found:'+str(len(np.unique(class_predictions))))
-        #st.success('Number of outliers found:'+str(len(class_predictions[class_predictions==-1])))
+            print("")      
+                
 
-        #st.success('Silhouette ignoring outliers:'+str(silhouette_score(X[class_predictions!=-1], class_predictions[class_predictions!=-1])))
-
-        #no_outliers = 0
-        #no_outliers = np.array([(counter+2)*x if x==-1 else x for counter, x in enumerate(class_predictions)])
-        #st.success('Silhouette outliers as singletons:'+str(silhouette_score(X, no_outliers)))
 
     st.header("Historical Data")        
     st.write(new_column)
