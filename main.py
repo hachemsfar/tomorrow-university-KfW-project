@@ -368,7 +368,7 @@ def prediction():
     Langengrad = st.number_input('Longitute :',-180,180)
     Breitengrad = st.number_input('Latitude :',-90,90)
         
-    clicked2=st.button('Predict')
+    clicked2=st.button('Predict2')
     if clicked2:
         print("Luna")
         
