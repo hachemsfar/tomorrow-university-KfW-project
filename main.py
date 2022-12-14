@@ -362,7 +362,7 @@ def prediction():
     st.header("ML Model Workflow")
     st.text("writing the process, ML, result, photos")
 
-    st.header("ML model demo")        
+    st.header("ML model Demo")        
     a = st.radio('Select features to predict:', ["Anschlussleistung", "Normalladeeinrichtung"])
 
     predicted_label=[3.7,11.0,22.0,26.4,30.0,33.0,39.6,44.0,50.0,93.0,150.0,300.0,350.0]
