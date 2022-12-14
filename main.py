@@ -355,8 +355,23 @@ def prediction():
         forecast.columns=['year',"chargers per year"]
         st.header("Expected # chargers for the next years")
         st.write(forecast)
+        
+    st.header("Anschlussleistung Prediction")        
+    st.header("ML Model Workflow")
+    st.text("writing the process, ML, result, photos")
 
-
+    st.header("ML model demo")        
+    Normalladeeinrichtung = st.radio('Type of Charging:', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
+    Anzahl_Ladepunkte = st.number_input('# Charging Points :',1,4)
+    year = st.number_input('Year :',2000,2050)
+    Plug_Type=st.multiselect('Plug Type', ['AC Schuko','AC Kupplung Typ 2',  'AC CEE 5 polig', 'DC Kupplung Combo', 'AC Steckdose Typ 2','AC CEE 3 polig','DC CHAdeMO'])
+    Längengrad = st.number_input('Longitute :',-180,180)
+    Breitengrad = st.number_input('Latitude :',-90,90)
+        
+    clicked2=st.button('Predict')
+    if clicked2:
+        print("Luna")
+        
                 
         
         
