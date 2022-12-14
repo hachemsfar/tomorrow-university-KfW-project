@@ -360,6 +360,8 @@ def prediction():
         
     st.header("Anschlussleistung/Normalladeeinrichtung Prediction")        
     st.header("ML Model Workflow")
+    st.image("kmeans_result.PNG")
+    st.image("dataframe_After_dataPreprocessing.PNG")
     st.text("writing the process, ML, result, photos")
 
     st.header("ML model Demo")        
