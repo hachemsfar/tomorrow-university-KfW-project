@@ -408,13 +408,18 @@ def prediction():
         
         row_topredict.append(year)
         
-        st.write(row_topredict)
         
         pickled_model = pickle.load(open('kmeans_model.pkl', 'rb'))
         class_predictions = pickled_model.predict([[float(Langengrad),float(Breitengrad)]])
-        st.write(class_predictions[0])
-
         
+        cluster_list=[0,0,0,0,0]
+        cluster_list[class_predictions[0]]=1
+        row_topredict=row_topredict+cluster_list
+                
+        pickled_model_2 = pickle.load(open('model.pkl', 'rb'))
+        class_predictions = pickled_model_2.predict([row_topredict])
+        
+        st.success(class_predictions)        
         
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
