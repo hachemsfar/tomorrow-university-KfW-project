@@ -382,15 +382,14 @@ def prediction():
         
     row_topredict=[]
     if clicked2:
-        if a=="Normalladeeinrichtung":
-                
+        if a=="Normalladeeinrichtung":  
+            row_topredict.append(Anschlussleistung)
+        else:
             if Normalladeeinrichtung=="Normalladeeinrichtung":
                 row_topredict.append(1)
             else:
                 row_topredict.append(0)  
-        else:
-            row_topredict.append(Anschlussleistung)
-         
+                
         row_topredict.append(Anzahl_Ladepunkte)
         
         plug_list=[0,0,0,0,0,0,0]
