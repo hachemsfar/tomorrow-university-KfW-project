@@ -358,26 +358,38 @@ def prediction():
         st.header("Expected # chargers for the next years")
         st.write(forecast)
         
-    st.header("Anschlussleistung Prediction")        
+    st.header("Anschlussleistung/Normalladeeinrichtung Prediction")        
     st.header("ML Model Workflow")
     st.text("writing the process, ML, result, photos")
 
     st.header("ML model demo")        
-    Normalladeeinrichtung = st.radio('Type of Charging :', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
+    a = st.radio('Select features to predict:', ["Anschlussleistung", "Normalladeeinrichtung"])
+
+    predicted_label=[3.7,11.0,22.0,26.4,30.0,33.0,39.6,44.0,50.0,93.0,150.0,300.0,350.0]
+
+    if a=="Normalladeeinrichtung":
+        Normalladeeinrichtung = st.radio('Type of Charging :', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
+    else:
+        Anschlussleistung = st.selectbox('Anschlussleistung :', predicted_label)
+
     Anzahl_Ladepunkte = st.number_input('Nbre Charging Points :',1,4)
     year = st.number_input('Year :',2000,2050)
     Plug_Type=st.multiselect('Plug Type :', ['AC Schuko','AC Kupplung Typ 2',  'AC CEE 5 polig', 'DC Kupplung Combo', 'AC Steckdose Typ 2','AC CEE 3 polig','DC CHAdeMO'])
     Langengrad = st.number_input('Longitute :',-180,180)
     Breitengrad = st.number_input('Latitude :',-90,90)
      
-    clicked2=st.button('Connected load prediction')
+    clicked2=st.button(str(a)+' prediction')
+        
     row_topredict=[]
     if clicked2:
-        if Normalladeeinrichtung=="Normalladeeinrichtung":
-                row_topredict.append(1)
-        else:
-                row_topredict.append(0)  
+        if a=="Normalladeeinrichtung":
                 
+            if Normalladeeinrichtung=="Normalladeeinrichtung":
+                row_topredict.append(1)
+            else:
+                row_topredict.append(0)  
+        else:
+            row_topredict.append(Anschlussleistung)
          
         row_topredict.append(Anzahl_Ladepunkte)
         
@@ -416,11 +428,18 @@ def prediction():
         cluster_list[class_predictions[0]]=1
         row_topredict=row_topredict+cluster_list
                 
-        pickled_model_2 = pickle.load(open('model.pkl', 'rb'))
-        class_predictions = pickled_model_2.predict([row_topredict])
-        predicted_label=[3.7,11.0,22.0,26.4,30.0,33.0,39.6,44.0,50.0,93.0,150.0,300.0,350.0]
-        
-        st.success(str(predicted_label[class_predictions[0]]))        
+        if a=="Normalladeeinrichtung":
+                pickled_model_2 = pickle.load(open('model_LG.pkl.pkl', 'rb'))
+                class_predictions = pickled_model_2.predict([row_topredict])
+                if class_predictions[0]==1:
+                        st.success(str("Normalladeeinrichtung"))        
+                else:
+                        st.success(str("Schnellladeeinrichtung"))        
+
+        else:
+                pickled_model_2 = pickle.load(open('model.pkl', 'rb'))
+                class_predictions = pickled_model_2.predict([row_topredict])        
+                st.success(str(predicted_label[class_predictions[0]]))        
         
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
