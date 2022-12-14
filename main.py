@@ -418,8 +418,9 @@ def prediction():
                 
         pickled_model_2 = pickle.load(open('model.pkl', 'rb'))
         class_predictions = pickled_model_2.predict([row_topredict])
+        predicted_label=[3.7,11.0,22.0,26.4,30.0,33.0,39.6,44.0,50.0,93.0,150.0,300.0,350.0]
         
-        st.success(class_predictions)        
+        st.success(predicted_label[class_predictions])        
         
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
