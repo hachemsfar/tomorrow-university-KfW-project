@@ -344,7 +344,7 @@ def prediction():
     new_column.dropna(inplace=True)
     new_column.columns = ['ds', 'y']
             
-    clicked=st.button('Expected # of chargers (Next years)')
+    clicked=st.button('Expected # of chargers')
     if clicked:
         n = NeuralProphet()
         model = n.fit(new_column, freq='Y')
