@@ -408,8 +408,10 @@ def prediction():
         
         row_topredict.append(year)
         
+        st.write(row_topredict)
+        
         pickled_model = pickle.load(open('kmeans_model.pkl', 'rb'))
-        class_predictions = pickled_model.predict(np.array([Langengrad,Breitengrad], dtype='float64'))
+        class_predictions = pickled_model.predict([Langengrad,Breitengrad])
         st.write(class_predictions)
 
         
