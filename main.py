@@ -368,7 +368,7 @@ def prediction():
     predicted_label=[3.7,11.0,22.0,26.4,30.0,33.0,39.6,44.0,50.0,93.0,150.0,300.0,350.0]
 
     if a=="Normalladeeinrichtung":
-        Normalladeeinrichtung = st.radio('Type of Charging :', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
+        Normalladeeinrichtung = st.selectbox('Type of Charging :', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
     else:
         Anschlussleistung = st.selectbox('Anschlussleistung :', predicted_label)
 
