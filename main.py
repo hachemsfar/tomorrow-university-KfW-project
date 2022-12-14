@@ -22,6 +22,8 @@ from sklearn.cluster import KMeans, DBSCAN
 from sklearn.metrics import silhouette_score
 from sklearn.neighbors import KNeighborsClassifier
 
+import pickle
+
 import hdbscan
 
 cols = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4',
@@ -367,12 +369,48 @@ def prediction():
     Plug_Type=st.multiselect('Plug Type :', ['AC Schuko','AC Kupplung Typ 2',  'AC CEE 5 polig', 'DC Kupplung Combo', 'AC Steckdose Typ 2','AC CEE 3 polig','DC CHAdeMO'])
     Langengrad = st.number_input('Longitute :',-180,180)
     Breitengrad = st.number_input('Latitude :',-90,90)
-        
+     
     clicked2=st.button('Connected load prediction')
+    row_topredict=[]
     if clicked2:
-        print("Luna")
-        
+        if Normalladeeinrichtung=="Normalladeeinrichtung":
+                row_topredict.append(1)
+        else:
+                row_topredict.append(0)  
                 
+         
+        row_topredict.append(Anzahl_Ladepunkte)
+        plug_list=[0,0,0,0,0,0,0]
+        
+        if Plug_Type=="AC CEE 3 polig":
+                plug_list[0]=1
+                
+        elif Plug_Type=="AC Kupplung Typ 2":
+                plug_list[1]=1
+                
+        elif Plug_Type=="DC CHAdeMO":
+                plug_list[2]=1
+
+        elif Plug_Type=="AC Steckdose Typ 2":
+                plug_list[3]=1
+                
+        elif Plug_Type=="DC Kupplung Combo":
+                plug_list[4]=1   
+                
+        elif Plug_Type=="AC Schuko":
+                plug_list[5]=1
+                
+        elif Plug_Type=="AC CEE 5 polig":
+                plug_list[6]=1
+                
+        row_topredict=row_topredict+plug_list
+        
+        row_topredict.append(year)
+        
+        pickled_model = pickle.load(open('kmeans_model.pkl', 'rb'))
+        class_predictions = pickled_model.predict(np.array([Langengrad,Breitengrad], dtype='float64'))
+        st.write(class_predictions)
+
         
         
 page_names_to_funcs = {
