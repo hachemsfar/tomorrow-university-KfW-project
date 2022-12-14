@@ -362,7 +362,7 @@ def prediction():
 
     st.header("ML model demo")        
     Normalladeeinrichtung = st.radio('Type of Charging:', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
-    Anzahl_Ladepunkte = st.number_input('# Charging Points :',1,4)
+    Anzahl_Ladepunkte = st.number_input('nbre Charging Points :',1,4)
     year = st.number_input('Year :',2000,2050)
     Plug_Type=st.multiselect('Plug Type', ['AC Schuko','AC Kupplung Typ 2',  'AC CEE 5 polig', 'DC Kupplung Combo', 'AC Steckdose Typ 2','AC CEE 3 polig','DC CHAdeMO'])
     Langengrad = st.number_input('Longitute :',-180,180)
