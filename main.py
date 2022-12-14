@@ -344,7 +344,7 @@ def prediction():
     new_column.dropna(inplace=True)
     new_column.columns = ['ds', 'y']
             
-    clicked=st.button('Predict')
+    clicked=st.button('Expected # of chargers (Next years)')
     if clicked:
         n = NeuralProphet()
         model = n.fit(new_column, freq='Y')
@@ -368,7 +368,7 @@ def prediction():
     Langengrad = st.number_input('Longitute :',-180,180)
     Breitengrad = st.number_input('Latitude :',-90,90)
         
-    clicked2=st.button('Predict2')
+    clicked2=st.button('Connected load prediction')
     if clicked2:
         print("Luna")
         
