@@ -11,4 +11,3 @@ plotly-express
 neuralprophet
 hdbscan
 scikit-learn
-pickle
