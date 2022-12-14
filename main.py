@@ -360,11 +360,11 @@ def prediction():
         
     st.header("Anschlussleistung/Normalladeeinrichtung Prediction")        
     st.header("ML Model Workflow")
-    st.markdown('**Dropped these columns:** Betreiber,Straße,Hausnummer,Adresszusatz,Postleitzahl,Ort,Bundesland,Kreis/kreisfreie Stadt,Public Key1,Public Key2,Public Key3,Public Key4')
-    st.markdown('**Converting** longitute and latitude from string to float | type of charging; 1 if Normalladeeinrichtung 0 if Schnellladeeinrichtung')
-    st.markdown('Extract year value from Inbetriebnahmedatum column')
-    st.markdown('**Using longitute and latitude and Kmeans (K=5)**, deutschland was divided into 5 areas like in the photo')
-    st.markdown('**One hot encoding applied on:**Plug type | Cluster Group ')
+    st.markdown('**Dropped these columns:** \n Betreiber,Straße,Hausnummer,Adresszusatz,Postleitzahl,Ort,Bundesland,Kreis/kreisfreie Stadt,Public Key1,Public Key2,Public Key3,Public Key4')
+    st.markdown('**Converting:** \n longitute and latitude from string to float | type of charging; 1 if Normalladeeinrichtung 0 if Schnellladeeinrichtung')
+    st.markdown('**New feature created:** \n Extract year value from Inbetriebnahmedatum column')
+    st.markdown('**Using longitute and latitude and Kmeans (K=5):** \n deutschland was divided into 5 areas like in the photo')
+    st.markdown('**One hot encoding applied on:** \n Plug type | Cluster Group ')
 
     st.image("kmeans_result.PNG")
     st.markdown('**_This is the final dataframe used for building the 2 models_**')
