@@ -368,9 +368,9 @@ def prediction():
     predicted_label=[3.7,11.0,22.0,26.4,30.0,33.0,39.6,44.0,50.0,93.0,150.0,300.0,350.0]
 
     if a=="Normalladeeinrichtung":
-        Normalladeeinrichtung = st.selectbox('Type of Charging :', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
-    else:
         Anschlussleistung = st.selectbox('Anschlussleistung :', predicted_label)
+    else:
+        Normalladeeinrichtung = st.selectbox('Type of Charging :', ["Normalladeeinrichtung", "Schnellladeeinrichtung"])
 
     Anzahl_Ladepunkte = st.number_input('Nbre Charging Points :',1,4)
     year = st.number_input('Year :',2000,2050)
@@ -429,7 +429,7 @@ def prediction():
         row_topredict=row_topredict+cluster_list
                 
         if a=="Normalladeeinrichtung":
-                pickled_model_2 = pickle.load(open('model_LG.pkl.pkl', 'rb'))
+                pickled_model_2 = pickle.load(open('model_LG.pkl', 'rb'))
                 class_predictions = pickled_model_2.predict([row_topredict])
                 if class_predictions[0]==1:
                         st.success(str("Normalladeeinrichtung"))        
