@@ -369,8 +369,9 @@ def prediction():
     st.image("kmeans_result.PNG")
     st.markdown('**_This is the final dataframe used for building the 2 models_**')
     st.image("dataframe_After_dataPreprocessing.PNG")
+    st.success("Normalladeeinrichtung Prediction(Binary classification): Algorithm used: Logistic Regression | Accuracy: 98.856% | F1 Score: 98.853% ")
+    st.success("Anschlussleistung Prediction(Multiclass classification, 13 class): Algorithm used: SVM | Accuracy: 58.256% | F1 Score: 51.33% ")
 
-        
     st.header("ML model Demo")        
     a = st.radio('Select features to predict:', ["Anschlussleistung", "Normalladeeinrichtung"])
 
