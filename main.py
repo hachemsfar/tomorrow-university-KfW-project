@@ -380,6 +380,7 @@ def prediction():
                 
          
         row_topredict.append(Anzahl_Ladepunkte)
+        
         plug_list=[0,0,0,0,0,0,0]
         
         if Plug_Type=="AC CEE 3 polig":
