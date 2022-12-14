@@ -412,7 +412,7 @@ def prediction():
         
         pickled_model = pickle.load(open('kmeans_model.pkl', 'rb'))
         class_predictions = pickled_model.predict([[float(Langengrad),float(Breitengrad)]])
-        st.write(class_predictions)
+        st.write(class_predictions[0])
 
         
         
