@@ -484,7 +484,7 @@ def recommendations():
             
     st.subheader("How many charges per person and how many chargers need to be addedd per city:")
     data3_ort['people/charger']=data3_ort["population"]/data3_ort["counts"]
-    st.write("In average: There is "+str(data3_ort.loc[:, 'people/charger'].mean())+"person per charger")  
+    st.write("In average: There is "+str(data3_ort.loc[:, 'people/charger'].mean())+" persons per charger")  
     st.write("We observe in the following table, cities that need more chargers (more than 4000 person per charger) ; we calculate how many chargers need to be added and we sorted the table from hightest to lowest ")  
        
     data_city=data3_ort[['Ort','population','counts','people/charger']].sort_values(['people/charger'],ascending=False)
