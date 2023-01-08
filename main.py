@@ -449,10 +449,64 @@ def prediction():
                 pickled_model_2 = pickle.load(open('model.pkl', 'rb'))
                 class_predictions = pickled_model_2.predict([row_topredict])        
                 st.success(str(predicted_label[class_predictions[0]]))        
-        
+
+def recommendations():
+
+    data = pd.read_csv('Ladesaeulenregister_CSV.csv', skiprows=10, sep=';', decimal=',',
+                     encoding="ISO-8859-1", engine='python')
+    data2=data.copy()
+
+
+    st.subheader("# new chargers per year")
+
+    year_list=[]
+
+    for i in data2['Inbetriebnahmedatum'].tolist():
+       year_list.append(int(i.split('.')[2]))
+
+
+    data2['year']=year_list
+    n = data2[data2['year']>2000]['year'].value_counts(ascending=True).tolist()
+    w = data2[data2['year']>2000]['year'].value_counts(ascending=True).index.tolist()
+
+    table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
+
+    df_state=table_MN[0][['Name','Area A (km²)','Population Estimate (E) 2021-12-31']]
+    df_city=table_MN[2][['Name','Population Estimate (E) 2021-12-31','Area']]
+    
+    df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' (')[0])
+    df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' [')[0])
+
+    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' (')[0])
+    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
+
+    data3_state=data2['Bundesland'].value_counts().rename_axis('Bundesland').reset_index(name='counts').merge(df_state, how='inner', left_on="Bundesland", right_on="Name")
+    data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="Name")
+            
+    st.subheader("How many person per charger")
+    data3_state['people/charger']=data3_state["Population Estimate (E) 2021-12-31"]/data3_state["counts"]
+    data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
+
+    st.subheader("Per State")
+    st.write(data3_state[['Bundesland','people/charger']].sort_values(['people/charger'],ascending=True))
+    st.subheader("Per City")
+    st.write(data3_ort[['Ort','people/charger']].sort_values(['people/charger'],ascending=True))
+
+            
+    st.subheader("How many charger per km²")
+    data3_state['charger/km2']=data3_state["counts"]/data3_state["Area A (km²)"]
+    data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
+
+    st.subheader("Per State")
+    st.write(data3_state[['Bundesland','charger/km2']].sort_values(['charger/km2'],ascending=False))
+    st.subheader("Per City")
+    st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
+
+
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
-"Prediction": prediction
+"Prediction": prediction,
+"Recommendations": recommendations    
 }
 
 demo_name = st.sidebar.selectbox("Choose the App", page_names_to_funcs.keys())
