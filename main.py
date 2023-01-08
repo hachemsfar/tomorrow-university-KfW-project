@@ -456,6 +456,7 @@ def recommendations():
                      encoding="ISO-8859-1", engine='python')
     data2=data.copy()
 
+    df_city= pd.read_excel('de.xlsx')
 
     st.subheader("# new chargers per year")
 
@@ -470,16 +471,16 @@ def recommendations():
     table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
 
     df_state=table_MN[0][['Name','Area A (km²)','Population Estimate (E) 2021-12-31']]
-    df_city=table_MN[2][['Name','Population Estimate (E) 2021-12-31','Area']]
+    #df_city=table_MN[2][['Name','Population Estimate (E) 2021-12-31','Area']]
     
     df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' (')[0])
     df_state['Name'] =  df_state['Name'].apply(lambda x:x.split(' [')[0])
 
-    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' (')[0])
-    df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
+    #df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' (')[0])
+    #df_city['Name'] = df_city['Name'].apply(lambda x:x.split(' [')[0])
 
     data3_state=data2['Bundesland'].value_counts().rename_axis('Bundesland').reset_index(name='counts').merge(df_state, how='inner', left_on="Bundesland", right_on="Name")
-    data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="Name")
+    data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="city")
             
     st.subheader("How many person per charger")
     data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
