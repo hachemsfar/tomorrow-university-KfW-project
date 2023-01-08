@@ -482,10 +482,11 @@ def recommendations():
     data3_state=data2['Bundesland'].value_counts().rename_axis('Bundesland').reset_index(name='counts').merge(df_state, how='inner', left_on="Bundesland", right_on="Name")
     data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="city")
             
-    st.subheader("How many person per charger")
+    st.subheader("How many charges per person and how many chargers need to be addedd per city:)
     data3_ort['people/charger']=data3_ort["population"]/data3_ort["counts"]
-    st.success(data3_ort.loc[:, 'people/charger'].mean())
-
+    st.write("In average: There is "+data3_ort.loc[:, 'people/charger'].mean()+"person per charger")  
+    st.write("We observe in the following table, cities that need more chargers (more than 4000 person per charger) ; we calculate how many chargers need to be added and we sorted the table from hightest to lowest ")  
+       
     data_city=data3_ort[['Ort','population','counts','people/charger']].sort_values(['people/charger'],ascending=False)
     data_city['# chargers need to be added']=data_city['population']/data3_ort.loc[:, 'people/charger'].mean()-data_city['counts']
 
