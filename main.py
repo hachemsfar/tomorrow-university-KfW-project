@@ -503,7 +503,7 @@ def recommendations():
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
 "Prediction": prediction,
-"Recommendations": recommendations    
+"Recommendations and Model Performance": recommendations    
 }
 
 demo_name = st.sidebar.selectbox("Choose the App", page_names_to_funcs.keys())
