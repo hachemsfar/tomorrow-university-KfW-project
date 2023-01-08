@@ -483,15 +483,15 @@ def recommendations():
             
     st.subheader("How many person per charger")
     data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
-
-    st.write(data3_ort[['Ort','people/charger']].sort_values(['people/charger'],ascending=True))
     st.success(data3_ort.loc[:, 'people/charger'].mean())
-        
-    st.subheader("How many charger per km²")
-    data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
 
-    st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
-    st.success(data3_ort.loc[:, 'charger/km2'].mean())
+    st.write(data3_ort[['Ort','Population Estimate (E) 2021-12-31','people/charger']].sort_values(['people/charger'],ascending=False))
+        
+    #st.subheader("How many charger per km²")
+    #data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
+
+    #st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
+    #st.success(data3_ort.loc[:, 'charger/km2'].mean())
 
 
 page_names_to_funcs = {
