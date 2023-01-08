@@ -484,22 +484,13 @@ def recommendations():
     data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="Name")
             
     st.subheader("How many person per charger")
-    data3_state['people/charger']=data3_state["Population Estimate (E) 2021-12-31"]/data3_state["counts"]
     data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
 
-    st.subheader("Per State")
-    st.write(data3_state[['Bundesland','people/charger']].sort_values(['people/charger'],ascending=True))
-    st.subheader("Per City")
     st.write(data3_ort[['Ort','people/charger']].sort_values(['people/charger'],ascending=True))
-
-            
+          
     st.subheader("How many charger per km²")
-    data3_state['charger/km2']=data3_state["counts"]/data3_state["Area A (km²)"]
     data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
 
-    st.subheader("Per State")
-    st.write(data3_state[['Bundesland','charger/km2']].sort_values(['charger/km2'],ascending=False))
-    st.subheader("Per City")
     st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
 
 
