@@ -483,14 +483,14 @@ def recommendations():
     data3_ort=data2['Ort'].value_counts().rename_axis('Ort').reset_index(name='counts').merge(df_city, how='inner', left_on="Ort", right_on="city")
             
     st.subheader("How many person per charger")
-    data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
+    data3_ort['people/charger']=data3_ort["population"]/data3_ort["counts"]
     st.success(data3_ort.loc[:, 'people/charger'].mean())
 
-    data_city=data3_ort[['Ort','Population Estimate (E) 2021-12-31','counts','people/charger']].sort_values(['people/charger'],ascending=False)
-    data_city['# chargers need to be added']=data_city['Population Estimate (E) 2021-12-31']/data3_ort.loc[:, 'people/charger'].mean()-data_city['counts']
+    data_city=data3_ort[['Ort','population','counts','people/charger']].sort_values(['people/charger'],ascending=False)
+    data_city['# chargers need to be added']=data_city['population']/data3_ort.loc[:, 'people/charger'].mean()-data_city['counts']
 
     data_city=data_city[data_city['# chargers need to be added']>0]
-    st.write(data_city[['Ort','Population Estimate (E) 2021-12-31','people/charger','# chargers need to be added']].sort_values(['# chargers need to be added'],ascending=False))
+    st.write(data_city[['Ort','population','people/charger','# chargers need to be added']].sort_values(['# chargers need to be added'],ascending=False))
         
     #st.subheader("How many charger per km²")
     #data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
