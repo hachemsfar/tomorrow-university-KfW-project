@@ -458,7 +458,7 @@ def recommendations():
 
     df_city= pd.read_excel('de.xlsx')
 
-    st.subheader("# new chargers per year")
+    st.header("# new chargers per year")
 
     year_list=[]
 
