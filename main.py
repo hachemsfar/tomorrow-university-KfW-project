@@ -466,8 +466,6 @@ def recommendations():
 
 
     data2['year']=year_list
-    n = data2[data2['year']>2000]['year'].value_counts(ascending=True).tolist()
-    w = data2[data2['year']>2000]['year'].value_counts(ascending=True).index.tolist()
 
     table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
 
@@ -487,12 +485,13 @@ def recommendations():
     data3_ort['people/charger']=data3_ort["Population Estimate (E) 2021-12-31"]/data3_ort["counts"]
 
     st.write(data3_ort[['Ort','people/charger']].sort_values(['people/charger'],ascending=True))
-    st.success(df["people/charger"].mean())
+    st.success(data3_ort.loc[:, 'people/charger'].mean())
         
     st.subheader("How many charger per km²")
     data3_ort['charger/km2']=data3_ort["counts"]/data3_ort["Area"]
 
     st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
+    st.success(data3_ort.loc[:, 'charger/km2'].mean())
 
 
 page_names_to_funcs = {
