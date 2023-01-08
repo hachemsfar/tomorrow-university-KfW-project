@@ -488,6 +488,7 @@ def recommendations():
     data_city=data3_ort[['Ort','Population Estimate (E) 2021-12-31','counts','people/charger']].sort_values(['people/charger'],ascending=False)
     data_city['# chargers need to be added']=data_city['Population Estimate (E) 2021-12-31']/data3_ort.loc[:, 'people/charger'].mean()-data_city['counts']
 
+    data_city=data_city[data_city['# chargers need to be added']>0]
     st.write(data_city[['Ort','Population Estimate (E) 2021-12-31','people/charger','# chargers need to be added']])
         
     #st.subheader("How many charger per km²")
