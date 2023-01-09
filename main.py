@@ -517,7 +517,7 @@ def recommendations():
     st.write("Accuracy: 63.35%")
     st.write("F1 Score: 52.24%")
         
-    st.sucess("We build different ML models using most popular ML algorithms; some models failed (like gradient boosting); we tried to look for the better hyperparameteres and at the end of we choose the models that have the best F1 score")
+    st.success("We build different ML models using most popular ML algorithms; some models failed (like gradient boosting); we tried to look for the better hyperparameteres and at the end of we choose the models that have the best F1 score")
 
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
