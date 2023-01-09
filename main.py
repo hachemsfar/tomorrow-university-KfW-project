@@ -457,8 +457,7 @@ def recommendations():
     data2=data.copy()
 
     df_city= pd.read_excel('de.xlsx')
-
-    st.header("# new chargers per year")
+    st.header("Recommendations")
 
     year_list=[]
 
@@ -498,12 +497,32 @@ def recommendations():
 
     #st.write(data3_ort[['Ort','charger/km2']].sort_values(['charger/km2'],ascending=False))
     #st.success(data3_ort.loc[:, 'charger/km2'].mean())
+        
+    st.header("Model Performance")
+    st.subheader("Binary Classification: Either normalcharger or schnellcharger")
+    st.success("Logistic Regression:")
+    st.write("Accuracy: 98.85%")
+    st.write("F1 Score: 97.8%")
+        
+    st.success("SVC:")
+    st.write("Accuracy: 99.21%")
+    st.write("F1 Score: 98.5%")
 
+    st.subheader("Multiclass Classification(13 class):Anschlussleistung")
+    st.success("Logistic Regression:")
+    st.write("Accuracy: 59.14%")
+    st.write("F1 Score: 32.5%")
+
+    st.success("SVC:")
+    st.write("Accuracy: 63.35%")
+    st.write("F1 Score: 52.24%")
+        
+    St.sucess("we build different ML models using most popular ML algorithms; some models failed (like gradient boosting); we tried to look for the better hyperparameteres and at the end of we choose the models that have the best F1 score")
 
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
 "Prediction": prediction,
-"Recommendations and Model Performance": recommendations    
+"Recommendations & Model Performance": recommendations    
 }
 
 demo_name = st.sidebar.selectbox("Choose the App", page_names_to_funcs.keys())
