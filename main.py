@@ -113,7 +113,7 @@ def data_visualization():
     df_concat=pd.concat([s1, s2], axis=1)
     st.write(df_concat)
     st.write("Luna")
-    st.write(sum_betreiber)
+    st.write(df_concat)
     sum_betreiber=df_concat['Betreiber'].sum()-df_concat['Betreiber'].head(7).sum()
     
     fig,ax=plt.subplots(figsize=(11,7))
