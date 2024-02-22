@@ -224,7 +224,7 @@ def data_visualization():
         st_folium(m, width=700, height=500)
 
 def create_map(df, cluster_column):
-    m = folium.Map(location=[df.Breitengrad.mean(), df.Längengrad.mean()], zoom_start=9, tiles='OpenStreet Map')
+    m = folium.Map(location=[df.Breitengrad.mean(), df.Längengrad.mean()], zoom_start=9, tiles='OpenStreetMap')
 
     for _, row in df.iterrows():
 
