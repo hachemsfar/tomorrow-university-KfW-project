@@ -112,18 +112,16 @@ def data_visualization():
     s2=(data['Betreiber'].value_counts(normalize=True).rename("Betreiber %")).apply(lambda x:x*100)
     df_concat=pd.concat([s1, s2], axis=1)
     st.write(df_concat)
-    st.write("Luna")
-    st.write(df_concat.columns)
     sum_betreiber=df_concat['Betreiber %'].sum()-df_concat['Betreiber %'].head(7).sum()
     
     fig,ax=plt.subplots(figsize=(11,7))
-    ax.pie(df_concat['Betreiber'].head(7).tolist()+[sum_betreiber], labels=df_concat.head(7).index.values.tolist()+["others"], autopct='%1.1f%%',shadow=True, startangle=90)
+    ax.pie(df_concat['Betreiber %'].head(7).tolist()+[sum_betreiber], labels=df_concat.head(7).index.values.tolist()+["others"], autopct='%1.1f%%',shadow=True, startangle=90)
     st.pyplot(fig)
 
-    sum_betreiber=df_concat['Betreiber'].sum()-df_concat['Betreiber'].head(5).sum()
+    sum_betreiber=df_concat['Betreiber %'].sum()-df_concat['Betreiber %'].head(5).sum()
 
     fig1,ax1=plt.subplots(figsize=(11,7))
-    ax1.bar(df_concat.head(5).index.values.tolist()+["others"], df_concat['Betreiber'].head(5).tolist()+[sum_betreiber],color='g', label='cos')
+    ax1.bar(df_concat.head(5).index.values.tolist()+["others"], df_concat['Betreiber %'].head(5).tolist()+[sum_betreiber],color='g', label='cos')
     st.pyplot(fig1)
 
     if(selected_cities):
