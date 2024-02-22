@@ -164,16 +164,16 @@ def data_visualization():
     st.subheader("Outliers Identification")
     fig = px.box(data2, y="year")
     st.plotly_chart(fig)
-            
-    st.subheader("Correlation between features")
-    st.write(data2)
-    corr = data2.corr()
-    fig = plt.figure(figsize=(11, 7))
-    sns.heatmap(corr,xticklabels=corr.columns,yticklabels=corr.columns,annot=True,cmap='Blues', fmt='g')
-    st.pyplot(fig)
-    st.success("P1&P2 are strongly positively correlated")
-    st.success("Both, P1 & P2 are positively correlated to Charging power (Anschlusleistung)")
-
+    
+    #st.subheader("Correlation between features")
+    #st.write(data2)
+    #corr = data2.corr()
+    #fig = plt.figure(figsize=(11, 7))
+    #sns.heatmap(corr,xticklabels=corr.columns,yticklabels=corr.columns,annot=True,cmap='Blues', fmt='g')
+    #st.pyplot(fig)
+    #st.success("P1&P2 are strongly positively correlated")
+    #st.success("Both, P1 & P2 are positively correlated to Charging power (Anschlusleistung)")
+    
     
 
     table_MN = pd.read_html('https://www.citypopulation.de/en/germany/cities/')
