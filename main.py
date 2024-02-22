@@ -166,7 +166,7 @@ def data_visualization():
     st.plotly_chart(fig)
             
     st.subheader("Correlation between features")
-    
+    st.write(data2)
     corr = data2.corr()
     fig = plt.figure(figsize=(11, 7))
     sns.heatmap(corr,xticklabels=corr.columns,yticklabels=corr.columns,annot=True,cmap='Blues', fmt='g')
